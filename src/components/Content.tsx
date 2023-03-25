@@ -1,17 +1,15 @@
 import './Content.css'
 
 type Props = {
-  name?: string;
-  age?: number;
+  head?: string;
+  text: string;
 };
 
-function Profile(props: Props) {
-  const age = props.age || 12
-  const name = props.name || 'Shoun'
+function Profile({ head, text } : Props) {
   return (
     <div className="profile">
-      <h1>Hello, {name}!</h1>
-      <p>You are {age} years old.</p>
+      <h1>{head}</h1>
+      <p>{text}</p>
     </div>
   );
 }
