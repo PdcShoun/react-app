@@ -1,6 +1,4 @@
-import React from 'react';
-import './Header.css'; // Import any additional styles you need
-import Button from '@mui/material/Button'
+import './Header.css'
 
 function Header() {
   return (
