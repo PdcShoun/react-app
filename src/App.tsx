@@ -45,7 +45,7 @@ function App() {
           <div className="row">
             {layoutArray.map((val) => (
               <div className="col">
-                <button
+                <button key={val}
                   className="btn btn-large btn-block btn-warning w-100 h-100"
                   onClick={() => enterButton(val)}
                 >
