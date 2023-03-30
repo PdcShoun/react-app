@@ -1,12 +1,12 @@
 type Props = {
   digit: string;
+  func: any
 };
 
-const DigitButton = ({ digit }: Props) => {
+const DigitButton = ({ digit, func }: Props) => {
+  const isNumber = !['AC', '+', '-', 'x', '/', '='].includes(digit)
   return (
-    <div className="col btn-block">
-      <button className="btn btn-large btn-block btn-warning w-100 h-100">{digit}</button>
-    </div>
+      <button onClick={func} className={`btn btn-large btn-block btn-${isNumber? 'warning': 'info'} w-100 h-100`}>{digit}</button>
   );
 };
 

@@ -1,45 +1,60 @@
 import { useState } from "react";
 import "./App.css";
 import DigitButton from "./components/DigitButton";
-import OperaterButton from "./components/OperaterButton";
 import Screen from "./components/Screen";
 
 function App() {
-  const [count, setCount] = useState("test");
+  const [value, setValue] = useState("0");
+  const calculatorLayout = [
+    ["AC", "/", "x", "+", "-"],
+    ["7", "8", "9"],
+    ["4", "5", "6"],
+    ["1", "2", "3"],
+    ["0", ".", "="],
+  ];
+
+  function enterButton(val: string) {
+    setValue((currentValue) => {
+      if (val === "AC") {
+        return "0";
+      } else if (val === "=") {
+        return eval(currentValue.replace("x", "*"));
+      } else if (val === "0" && currentValue === "0") {
+        return "0";
+      } else if (val !== "0" && currentValue === "0") {
+        return val;
+      } else if (
+        calculatorLayout[0].includes(val) &&
+        calculatorLayout[0].includes(currentValue.slice(-1))
+      ) {
+        const newValue = currentValue.split("");
+        newValue[-1] = val;
+        return newValue.join("");
+      }
+      return currentValue + val;
+    });
+  }
 
   return (
     <div className="App">
       <div className="container text-center align-items-center">
         <div className="row">
-          <Screen value={count} />
+          <Screen value={value} />
         </div>
-        <div className="row">
-          <OperaterButton operater="AC" />
-          <OperaterButton operater="/" />
-          <OperaterButton operater="x" />
-          <OperaterButton operater="+" />
-          <OperaterButton operater="-" />
-        </div>
-        <div className="row">
-          <DigitButton digit="7" />
-          <DigitButton digit="8" />
-          <DigitButton digit="9" />
-        </div>
-        <div className="row">
-          <DigitButton digit="4" />
-          <DigitButton digit="5" />
-          <DigitButton digit="6" />
-        </div>
-        <div className="row">
-          <DigitButton digit="1" />
-          <DigitButton digit="2" />
-          <DigitButton digit="3" />
-        </div>
-        <div className="row">
-          <DigitButton digit="0" />
-          <DigitButton digit="." />
-          <OperaterButton operater="=" />
-        </div>
+        {calculatorLayout.map((layoutArray) => (
+          <div className="row">
+            {layoutArray.map((val) => (
+              <div className="col">
+                <button
+                  className="btn btn-large btn-block btn-warning w-100 h-100"
+                  onClick={() => enterButton(val)}
+                >
+                  {val}
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
