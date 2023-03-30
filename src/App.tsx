@@ -21,7 +21,7 @@ function App() {
         return eval(currentValue.replace("x", "*"));
       } else if (val === "0" && currentValue === "0") {
         return "0";
-      } else if (val !== "0" && currentValue === "0") {
+      } else if (val !== "0" && currentValue === "0" && !calculatorLayout[0].includes(val)) {
         return val;
       } else if (
         calculatorLayout[0].includes(val) &&
