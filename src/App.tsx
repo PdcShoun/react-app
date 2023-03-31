@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import DigitButton from "./components/DigitButton";
 import Screen from "./components/Screen";
 
 function App() {
@@ -18,10 +17,14 @@ function App() {
       if (val === "AC") {
         return "0";
       } else if (val === "=") {
-        return eval(currentValue.replace("x", "*"));
+        return eval(currentValue.replace("x", "*")).toString();
       } else if (val === "0" && currentValue === "0") {
         return "0";
-      } else if (val !== "0" && currentValue === "0" && !calculatorLayout[0].includes(val)) {
+      } else if (
+        val !== "0" &&
+        currentValue === "0" &&
+        !calculatorLayout[0].includes(val)
+      ) {
         return val;
       } else if (
         calculatorLayout[0].includes(val) &&
@@ -41,17 +44,16 @@ function App() {
         <div className="row">
           <Screen value={value} />
         </div>
-        {calculatorLayout.map((layoutArray) => (
-          <div className="row">
-            {layoutArray.map((val) => (
-              <div className="col">
-                <button key={val}
-                  className="btn btn-large btn-block btn-warning w-100 h-100"
-                  onClick={() => enterButton(val)}
-                >
-                  {val}
-                </button>
-              </div>
+        {calculatorLayout.map((layoutArray, index) => (
+          <div className="row" key={index}>
+            {layoutArray.map((val, index) => (
+              <button
+                key={val}
+                className="btn btn-large btn-block btn-warning w-100 h-100 col border border-secondary"
+                onClick={() => enterButton(val)}
+              >
+                {val}
+              </button>
             ))}
           </div>
         ))}
